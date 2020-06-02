@@ -24,6 +24,7 @@ Route::prefix('customers')->group(function () {
     Route::get('{id}/edit', 'CustomerController@edit')->name('customers.edit');
     Route::post('{id}/edit', 'CustomerController@update')->name('customers.update');
     Route::get('{id}/destroy', 'CustomerController@destroy')->name('customers.destroy');
+    Route::get('/filter','CustomerController@filterByCity')->name('customers.filterByCity');
 });
 
 Route::prefix('cities')->group(function () {
@@ -33,4 +34,5 @@ Route::prefix('cities')->group(function () {
     Route::get('{id}/edit', 'CityController@edit')->name('cities.edit');
     Route::post('{id}/edit', 'CityController@update')->name('cities.update');
     Route::get('{id}/delete', 'CityController@destroy')->name('cities.destroy');
+
 });
