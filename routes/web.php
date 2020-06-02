@@ -28,4 +28,6 @@ Route::prefix('customers')->group(function () {
 
 Route::prefix('cities')->group(function () {
     Route::get('/', 'CityController@index')->name('cities.index');
+    Route::get('create', 'CityController@create')->name('cities.create');
+    Route::post('create', 'CityController@store')->name('cities.store');
 });

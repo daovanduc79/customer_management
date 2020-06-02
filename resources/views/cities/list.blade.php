@@ -6,6 +6,9 @@
             <div class="col-12">
                 <h1>Danh Sách Khách Hàng</h1>
             </div>
+            <div class="col-12">
+                <p style="color: green">{{session('success')}}</p>
+            </div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -34,7 +37,7 @@
                 @endif
                 </tbody>
             </table>
-            <a class="btn btn-primary" href="">Thêm mới</a>
+            <a class="btn btn-primary" href="{{route('cities.create')}}">Thêm mới</a>
         </div>
     </div>
 @endsection
