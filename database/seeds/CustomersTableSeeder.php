@@ -2,10 +2,8 @@
 
 use App\Customer;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
-class CustomerTableSeeder extends Seeder
+class CustomersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +12,6 @@ class CustomerTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Customer::class,30)->create();
+        factory(Customer::class,50)->create();
     }
 }

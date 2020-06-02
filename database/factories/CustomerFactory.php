@@ -2,13 +2,16 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\City;
+use App\Customer;
 use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(\App\Customer::class, function (Faker $faker) {
+$factory->define(Customer::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'dob' => $faker->date(),
-        'email' => $faker->unique()->safeEmail
+        'email' => $faker->unique()->safeEmail,
+        'city_id' => City::all()->random()->id,
     ];
 });
