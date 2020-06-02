@@ -17,10 +17,10 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customers = $this->customers->all();
+        $customers = $this->customers->paginate(5);
         $cities = City::all();
 
-        return view('customers.list', compact('customers','cities'));
+        return view('customers.list', compact('customers', 'cities'));
     }
 
     public function create()
@@ -38,7 +38,7 @@ class CustomerController extends Controller
         $customer->city_id = $request->city_id;
 
         $customer->save();
-        session()->flash('success','thêm mới thành công!!!');
+        session()->flash('success', 'thêm mới thành công!!!');
         return redirect()->route('customers.index');
     }
 
@@ -47,7 +47,7 @@ class CustomerController extends Controller
         $customer = $this->customers->findOrFail($id);
         $cities = City::all();
 
-        return view('customers.edit', compact('customer','cities'));
+        return view('customers.edit', compact('customer', 'cities'));
     }
 
     public function update(Request $request, $id)
@@ -59,7 +59,7 @@ class CustomerController extends Controller
         $customer->city_id = $request->city_id;
 
         $customer->save();
-        session()->flash('success','cập nhật thành công!!!');
+        session()->flash('success', 'cập nhật thành công!!!');
         return redirect()->route('customers.index');
     }
 
@@ -71,17 +71,33 @@ class CustomerController extends Controller
 
     }
 
-    public function filterByCity(Request $request){
+    public function filterByCity(Request $request)
+    {
         $idCity = $request->city_id;
 
         //kiem tra city co ton tai khong
         $cityFilter = City::findOrFail($idCity);
 
         //lay ra tat ca customer cua cityFiler
-        $customers = Customer::where('city_id', $cityFilter->id)->get();
+        $customers = Customer::where('city_id', $cityFilter->id)->paginate(5);
         $totalCustomerFilter = count($customers);
         $cities = City::all();
 
         return view('customers.list', compact('customers', 'cities', 'totalCustomerFilter', 'cityFilter'));
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        if (!$keyword) {
+            return redirect()->route('customers.index');
+        }
+
+        $customers = $this->customers->where('name', 'LIKE', '%'.$keyword.'%')->paginate(5);
+
+        $cities = City::all();
+
+        return view('customers.list', compact('customers', 'cities'));
     }
 }
