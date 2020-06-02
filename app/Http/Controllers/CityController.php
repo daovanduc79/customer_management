@@ -35,4 +35,33 @@ class CityController extends Controller
 
         return redirect()->route('cities.index');
     }
+
+    public function edit($id)
+    {
+        $city = $this->cities->findOrFail($id);
+
+        return view('cities.edit', compact('city'));
+    }
+
+    public function update($id, Request $request)
+    {
+        $city = $this->cities->findOrFail($id);
+        $city->name = $request->name;
+        $city->save();
+
+        $message = 'cap nhat thanh cong!!';
+        session()->flash('success', $message);
+
+        return redirect()->route('cities.index');
+    }
+
+    public function destroy($id)
+    {
+        $city = $this->cities->findOrFail($id);
+
+        $city->customers()->delete();
+        $city->delete();
+
+        return redirect()->route('cities.index');
+    }
 }

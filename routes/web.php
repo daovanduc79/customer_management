@@ -30,4 +30,7 @@ Route::prefix('cities')->group(function () {
     Route::get('/', 'CityController@index')->name('cities.index');
     Route::get('create', 'CityController@create')->name('cities.create');
     Route::post('create', 'CityController@store')->name('cities.store');
+    Route::get('{id}/edit', 'CityController@edit')->name('cities.edit');
+    Route::post('{id}/edit', 'CityController@update')->name('cities.update');
+    Route::get('{id}/delete', 'CityController@destroy')->name('cities.destroy');
 });
