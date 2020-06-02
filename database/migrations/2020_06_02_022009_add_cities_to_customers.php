@@ -14,7 +14,8 @@ class AddCitiesToCustomers extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            //
+            $table->unsignedInteger('city_id')->after('email')->nullable();
+            $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 
@@ -26,8 +27,7 @@ class AddCitiesToCustomers extends Migration
     public function down()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->unsignedInteger('city_id')->after('email')->nullable();
-            $table->foreign('city_id')->references('id')->on('cities');
+
         });
     }
 }
